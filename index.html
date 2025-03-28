@@ -72,25 +72,25 @@
     }
 
     function drawCameraBackground() {
-      let videoRatio = capture.width / capture.height;
-      let screenRatio = width / height;
-      let drawW, drawH;
+  let videoRatio = capture.width / capture.height;
+  let screenRatio = width / height;
 
-      if (videoRatio > screenRatio) {
-        drawH = height;
-        drawW = drawH * videoRatio;
-      } else {
-        drawW = width;
-        drawH = drawW / videoRatio;
-      }
+  let drawWidth = width;
+  let drawHeight = height;
 
-      let offsetX = (width - drawW) / 2;
-      let offsetY = (height - drawH) / 2;
+  if (videoRatio > screenRatio) {
+    drawHeight = width / videoRatio;
+  } else {
+    drawWidth = height * videoRatio;
+  }
 
-      tint(0, 60);
-      image(capture, offsetX, offsetY, drawW, drawH);
-      noTint();
-    }
+  let offsetX = (width - drawWidth) / 2;
+  let offsetY = (height - drawHeight) / 2;
+
+  tint(0, 60); // controla visibilidad del fondo
+  image(capture, offsetX, offsetY, drawWidth, drawHeight);
+  noTint();
+}
 
     function draw() {
       if (!capture || !videoReady || capture.width === 0 || capture.height === 0) {
